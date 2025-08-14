@@ -1,12 +1,10 @@
-const pool = require('./config/db');
+import pool from './db.js';
 
-async function testConnection() {
+(async () => {
   try {
-    const [rows] = await pool.query('SELECT NOW() AS fecha_actual');
-    console.log('✅ Conexión exitosa:', rows[0].fecha_actual);
+    const [rows] = await pool.query('SELECT NOW() AS fecha');
+    console.log('✅ Conexión exitosa:', rows[0].fecha);
   } catch (error) {
-    console.error('❌ Error de conexión:', error);
+    console.error('❌ Error en la conexión:', error);
   }
-}
-
-testConnection();
+})();
