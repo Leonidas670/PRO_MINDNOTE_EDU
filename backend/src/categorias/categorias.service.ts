@@ -1,15 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CategoriasService {
+  constructor(
+    private prisma: PrismaService
+  ) {}
+
+
   create(createCategoriaDto: CreateCategoriaDto) {
     return 'This action adds a new categoria';
   }
 
   findAll() {
-    return `This action returns all categorias`;
+    return this.prisma.categorias.deleteMany()
   }
 
   findOne(id: number) {

@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TareasService } from './tareas.service';
 import { TareasController } from './tareas.controller';
+import { Prisma } from 'generated/prisma';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [TareasController],
   providers: [TareasService],
 })

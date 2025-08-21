@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEstadoTareaDto } from './dto/create-estado_tarea.dto';
 import { UpdateEstadoTareaDto } from './dto/update-estado_tarea.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class EstadoTareasService {
+
+  constructor(
+    private prisma: PrismaService
+  ) {}
   create(createEstadoTareaDto: CreateEstadoTareaDto) {
     return 'This action adds a new estadoTarea';
   }
 
   findAll() {
-    return `This action returns all estadoTareas`;
+    return this.prisma.estadoTareas.findMany()
   }
 
   findOne(id: number) {

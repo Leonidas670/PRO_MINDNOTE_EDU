@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Categorias {
+  categoria_id     Int        @id @default(autoincrement())
+  categoria_nombre String     @unique
+  tipo_id          Int?
+  tipo_tareas      TipoTareas? @relation(fields: [tipo_id], references: [tipo_id], onUpdate: Cascade, onDelete: SetNull)
+
+  tareas Tareas[]
+}
+
+model EstadoTareas {
+  estado_id     Int      @id @default(autoincrement())
+  estado_nombre String   @unique
+
+  tareas          Tareas[]
+  historial_tareas HistorialTareas[]
+}
+
+model HistorialTareas {
+  historial_id         Int      @id @default(autoincrement())
+  historial_fechaRegistro DateTime @default(now())
+  tarea_id             Int
+  usuario_id           Int
+  estado_id            Int
+
+  tarea   Tareas       @relation(fields: [tarea_id], references: [tarea_id], onUpdate: Cascade, onDelete: Cascade)
+  usuario Usuarios     @relation(fields: [usuario_id], references: [usuario_id], onUpdate: Cascade, onDelete: Cascade)
+  estado  EstadoTareas @relation(fields: [estado_id], references: [estado_id], onUpdate: Cascade)
+}
+
+model Notificaciones {
+  notificacion_id        Int      @id @default(autoincrement())
+  notificacion_mensaje   String
+  notificacion_fechaEnvio DateTime @default(now())
+  notificacion_entregado Boolean  @default(false)
+  tarea_id               Int
+
+  tarea Tareas @relation(fields: [tarea_id], references: [tarea_id], onUpdate: Cascade, onDelete: Cascade)
+}
+
+model Preferencias {
+  preferencia_id     Int       @id @default(autoincrement())
+  preferencia_nombre String    @unique
+
+  usuarios Usuarios[]
+}
+
+model PrioridadTareas {
+  prioridad_id     Int      @id @default(autoincrement())
+  prioridad_nombre String   @unique
+
+  tareas Tareas[]
+}
+
+model Tareas {
+  tarea_id         Int        @id @default(autoincrement())
+  tarea_titulo     String
+  tarea_descripcion String?
+  tarea_fechaLimite DateTime?
+  tarea_hora       DateTime?
+  estado_id        Int
+  prioridad_id     Int
+  usuario_id       Int
+  categoria_id     Int?
+
+  estado     EstadoTareas   @relation(fields: [estado_id], references: [estado_id], onUpdate: Cascade)
+  prioridad  PrioridadTareas @relation(fields: [prioridad_id], references: [prioridad_id], onUpdate: Cascade)
+  usuario    Usuarios       @relation(fields: [usuario_id], references: [usuario_id], onUpdate: Cascade, onDelete: Cascade)
+  categoria  Categorias?    @relation(fields: [categoria_id], references: [categoria_id], onUpdate: Cascade, onDelete: SetNull)
+
+  notificaciones  Notificaciones[]
+  historial_tareas HistorialTareas[]
+}
+
+model TipoTareas {
+  tipo_id     Int        @id @default(autoincrement())
+  tipo_nombre String     @unique
+
+  categorias Categorias[]
+}
+
+model Usuarios {
+  usuario_id        Int       @id @default(autoincrement())
+  usuario_nombre    String
+  usuario_apellido  String
+  usuario_correo    String    @unique
+  usuario_contrasena String
+  usuario_rol       String
+  usuario_preferencia Int?
+
+  preferencia Preferencias? @relation(fields: [usuario_preferencia], references: [preferencia_id], onUpdate: Cascade, onDelete: SetNull)
+
+  tareas          Tareas[]
+  historial_tareas HistorialTareas[]
+}
