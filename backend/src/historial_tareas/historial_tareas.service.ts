@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHistorialTareaDto } from './dto/create-historial_tarea.dto';
 import { UpdateHistorialTareaDto } from './dto/update-historial_tarea.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class HistorialTareasService {
+  constructor(private prisma: PrismaService)
+{}
   create(createHistorialTareaDto: CreateHistorialTareaDto) {
     return 'This action adds a new historialTarea';
   }
 
   findAll() {
-    return `This action returns all historialTareas`;
+    return this.prisma.historialTarea.findMany(); 
   }
 
   findOne(id: number) {

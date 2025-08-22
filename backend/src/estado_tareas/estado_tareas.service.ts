@@ -14,7 +14,7 @@ export class EstadoTareasService {
   }
 
   findAll() {
-    return this.prisma.estadoTareas.findMany()
+    return this.prisma.estadoTarea.findMany();
   }
 
   findOne(id: number) {

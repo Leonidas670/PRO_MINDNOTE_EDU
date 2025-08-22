@@ -14,7 +14,7 @@ export class TareasService {
   }
 
   findAll() {
-    return this.prisma.tareas.findMany()
+    return this.prisma.tarea.findMany();
   }
 
   findOne(id: number) {

@@ -1,110 +1,115 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// schema.prisma
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output = "../generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mysql" 
   url      = env("DATABASE_URL")
 }
 
-model Categorias {
-  categoria_id     Int        @id @default(autoincrement())
-  categoria_nombre String     @unique
-  tipo_id          Int?
-  tipo_tareas      TipoTareas? @relation(fields: [tipo_id], references: [tipo_id], onUpdate: Cascade, onDelete: SetNull)
+model Usuario {
+  usuario_id        Int        @id @default(autoincrement())
+  usuario_nombre    String     @db.VarChar(50)
+  usuario_apellido  String     @db.VarChar(50)
+  usuario_correo    String     @unique @db.VarChar(100)
+  usuario_contrasena String    @db.VarChar(255)
+  usuario_rol       String     @db.VarChar(20)
+  usuario_preferencia Int?     
+  
+  // Relaciones
+  preferencia   Preferencia? @relation(fields: [usuario_preferencia], references: [preferencia_id])
+  tareas        Tarea[]
+  historial     HistorialTarea[]
 
-  tareas Tareas[]
+  @@map("usuarios")
 }
 
-model EstadoTareas {
-  estado_id     Int      @id @default(autoincrement())
-  estado_nombre String   @unique
+model Preferencia {
+  preferencia_id    Int       @id @default(autoincrement())
+  preferencia_nombre String   @unique @db.VarChar(50)
 
-  tareas          Tareas[]
-  historial_tareas HistorialTareas[]
+  usuarios Usuario[]
+
+  @@map("preferencias")
 }
 
-model HistorialTareas {
-  historial_id         Int      @id @default(autoincrement())
+model EstadoTarea {
+  estado_id    Int       @id @default(autoincrement())
+  estado_nombre String   @unique @db.VarChar(30)
+
+  tareas      Tarea[]
+  historiales HistorialTarea[]
+
+  @@map("estado_tareas")
+}
+
+model PrioridadTarea {
+  prioridad_id    Int      @id @default(autoincrement())
+  prioridad_nombre String  @unique @db.VarChar(30)
+
+  tareas Tarea[]
+
+  @@map("prioridad_tareas")
+}
+
+model TipoTarea {
+  tipo_id    Int      @id @default(autoincrement())
+  tipo_nombre String  @unique @db.VarChar(30)
+
+  tareas Tarea[]
+
+  @@map("tipo_tareas")
+}
+
+model Tarea {
+  tarea_id          Int      @id @default(autoincrement())
+  tarea_titulo      String   @db.VarChar(100)
+  tarea_descripcion String
+  tarea_fechaLimite DateTime @db.Date
+  tarea_hora        DateTime @db.Time
+
+  estado_id     Int
+  prioridad_id  Int
+  usuario_id    Int
+  tipo_id       Int
+
+  // Relaciones
+  estado     EstadoTarea    @relation(fields: [estado_id], references: [estado_id])
+  prioridad  PrioridadTarea @relation(fields: [prioridad_id], references: [prioridad_id])
+  usuario    Usuario        @relation(fields: [usuario_id], references: [usuario_id])
+  tipo       TipoTarea      @relation(fields: [tipo_id], references: [tipo_id])
+  historial  HistorialTarea[]
+  notificaciones Notificacion[]
+
+  @@map("tareas")
+}
+
+model HistorialTarea {
+  historial_id        Int      @id @default(autoincrement())
   historial_fechaRegistro DateTime @default(now())
-  tarea_id             Int
-  usuario_id           Int
-  estado_id            Int
 
-  tarea   Tareas       @relation(fields: [tarea_id], references: [tarea_id], onUpdate: Cascade, onDelete: Cascade)
-  usuario Usuarios     @relation(fields: [usuario_id], references: [usuario_id], onUpdate: Cascade, onDelete: Cascade)
-  estado  EstadoTareas @relation(fields: [estado_id], references: [estado_id], onUpdate: Cascade)
+  tarea_id   Int
+  usuario_id Int
+  estado_id  Int
+
+  tarea   Tarea    @relation(fields: [tarea_id], references: [tarea_id])
+  usuario Usuario  @relation(fields: [usuario_id], references: [usuario_id])
+  estado  EstadoTarea @relation(fields: [estado_id], references: [estado_id])
+
+  @@map("historial_tareas")
 }
 
-model Notificaciones {
+model Notificacion {
   notificacion_id        Int      @id @default(autoincrement())
   notificacion_mensaje   String
   notificacion_fechaEnvio DateTime @default(now())
-  notificacion_entregado Boolean  @default(false)
-  tarea_id               Int
+  notificacion_entregado Boolean   @default(false)
 
-  tarea Tareas @relation(fields: [tarea_id], references: [tarea_id], onUpdate: Cascade, onDelete: Cascade)
-}
+  tarea_id Int
+  tarea    Tarea @relation(fields: [tarea_id], references: [tarea_id])
 
-model Preferencias {
-  preferencia_id     Int       @id @default(autoincrement())
-  preferencia_nombre String    @unique
-
-  usuarios Usuarios[]
-}
-
-model PrioridadTareas {
-  prioridad_id     Int      @id @default(autoincrement())
-  prioridad_nombre String   @unique
-
-  tareas Tareas[]
-}
-
-model Tareas {
-  tarea_id         Int        @id @default(autoincrement())
-  tarea_titulo     String
-  tarea_descripcion String?
-  tarea_fechaLimite DateTime?
-  tarea_hora       DateTime?
-  estado_id        Int
-  prioridad_id     Int
-  usuario_id       Int
-  categoria_id     Int?
-
-  estado     EstadoTareas   @relation(fields: [estado_id], references: [estado_id], onUpdate: Cascade)
-  prioridad  PrioridadTareas @relation(fields: [prioridad_id], references: [prioridad_id], onUpdate: Cascade)
-  usuario    Usuarios       @relation(fields: [usuario_id], references: [usuario_id], onUpdate: Cascade, onDelete: Cascade)
-  categoria  Categorias?    @relation(fields: [categoria_id], references: [categoria_id], onUpdate: Cascade, onDelete: SetNull)
-
-  notificaciones  Notificaciones[]
-  historial_tareas HistorialTareas[]
-}
-
-model TipoTareas {
-  tipo_id     Int        @id @default(autoincrement())
-  tipo_nombre String     @unique
-
-  categorias Categorias[]
-}
-
-model Usuarios {
-  usuario_id        Int       @id @default(autoincrement())
-  usuario_nombre    String
-  usuario_apellido  String
-  usuario_correo    String    @unique
-  usuario_contrasena String
-  usuario_rol       String
-  usuario_preferencia Int?
-
-  preferencia Preferencias? @relation(fields: [usuario_preferencia], references: [preferencia_id], onUpdate: Cascade, onDelete: SetNull)
-
-  tareas          Tareas[]
-  historial_tareas HistorialTareas[]
+  @@map("notificaciones")
 }

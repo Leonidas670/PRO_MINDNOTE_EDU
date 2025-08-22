@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NotificacionesService {
+
+  constructor(
+    private prisma: PrismaService
+  ) {}
   create(createNotificacioneDto: CreateNotificacioneDto) {
     return 'This action adds a new notificacione';
   }
 
   findAll() {
-    return `This action returns all notificaciones`;
+    return this.prisma.notificacion.findMany();
   }
 
   findOne(id: number) {
