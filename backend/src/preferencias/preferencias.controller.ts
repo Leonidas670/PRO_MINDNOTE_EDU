@@ -8,8 +8,8 @@ export class PreferenciasController {
   constructor(private readonly preferenciasService: PreferenciasService) {}
 
   @Post()
-  create(@Body() createPreferenciaDto: CreatePreferenciaDto) {
-    return this.preferenciasService.create(createPreferenciaDto);
+  create(@Body() body:any) {
+    return this.preferenciasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,12 @@ export class PreferenciasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePreferenciaDto: UpdatePreferenciaDto) {
-    return this.preferenciasService.update(+id, updatePreferenciaDto);
+  update(@Param('id') id: string, @Body() body: any) {
+    return {
+      "exito" : true,
+      "mensaje": "Preferencia actualizada",
+      "data": this.preferenciasService.update(+id, body)
+    };
   }
 
   @Delete(':id')

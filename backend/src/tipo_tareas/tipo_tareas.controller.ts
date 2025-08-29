@@ -8,8 +8,8 @@ export class TipoTareasController {
   constructor(private readonly tipoTareasService: TipoTareasService) {}
 
   @Post()
-  create(@Body() createTipoTareaDto: CreateTipoTareaDto) {
-    return this.tipoTareasService.create(createTipoTareaDto);
+  create(@Body() body:any) {
+    return this.tipoTareasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class TipoTareasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTipoTareaDto: UpdateTipoTareaDto) {
-    return this.tipoTareasService.update(+id, updateTipoTareaDto);
+  update(@Param('id') id: string, @Body() body:any) {
+   return {
+    "exito" : true,
+    "mensaje": "Tipo de tarea actualizada con exito",
+    "id": id,
+    "data": this.tipoTareasService.update(+id, body)
+   }
   }
 
   @Delete(':id')

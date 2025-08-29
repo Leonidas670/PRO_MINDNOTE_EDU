@@ -8,8 +8,8 @@ export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
   @Post()
-  create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return this.usuariosService.create(createUsuarioDto);
+  create(@Body() body:any) {
+    return this.usuariosService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class UsuariosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUsuarioDto: UpdateUsuarioDto) {
-    return this.usuariosService.update(+id, updateUsuarioDto);
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Usuario actualizado",
+      "id": id,
+      "data": this.usuariosService.update(+id, body)
+    };
   }
 
   @Delete(':id')

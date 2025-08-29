@@ -7,23 +7,39 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class HistorialTareasService {
   constructor(private prisma: PrismaService)
 {}
-  create(createHistorialTareaDto: CreateHistorialTareaDto) {
-    return 'This action adds a new historialTarea';
+  async create(body:any) {
+    return await this.prisma.historialTarea.create({
+      data: body
+    });
   }
 
-  findAll() {
-    return this.prisma.historialTarea.findMany(); 
+  async findAll() {
+    return await this.prisma.historialTarea.findMany({
+      orderBy: {historial_id: 'desc'}
+    }); 
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} historialTarea`;
+  async findOne(id: number) {
+    return await this.prisma.historialTarea.findFirst({
+      where: {historial_id: id}
+    });
   }
 
-  update(id: number, updateHistorialTareaDto: UpdateHistorialTareaDto) {
-    return `This action updates a #${id} historialTarea`;
-  }
+  async update(id: number, body:any) {
+    return await this.prisma.historialTarea.update({
+      where: {historial_id: id},
+      data: body 
+  })
+}
 
-  remove(id: number) {
-    return `This action removes a #${id} historialTarea`;
-  }
+  async remove(id: number) {
+    await this.prisma.historialTarea.delete({
+      where: {historial_id: id}
+    })
+    return{
+      "exito": true,
+      "mensaje": "Historial de tarea eliminado exitosamente",
+      "id": id 
+    }
+   }
 }

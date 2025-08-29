@@ -9,23 +9,40 @@ export class TareasService {
     private prisma: PrismaService
   ) {}
 
-  create(createTareaDto: CreateTareaDto) {
-    return 'This action adds a new tarea';
+  async create(body:any) {
+    return await this.prisma.tarea.create({
+      data: body
+    });
   }
 
-  findAll() {
-    return this.prisma.tarea.findMany();
+  async findAll() {
+    return await this.prisma.tarea.findMany({
+      orderBy: { tarea_id: 'desc' }
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tarea`;
+  async findOne(id: number) {
+    return await this.prisma.tarea.findFirst({
+      where: { tarea_id: id }
+    });
   }
 
-  update(id: number, updateTareaDto: UpdateTareaDto) {
-    return `This action updates a #${id} tarea`;
-  }
+  async update(id: number, body:any) {
+    return await this.prisma.tarea.update({
+      where: { tarea_id: id },
+      data: body
+  })
+}
 
-  remove(id: number) {
-    return `This action removes a #${id} tarea`;
+  async remove(id: number) {
+    await this.prisma.tarea.delete({
+      where: { tarea_id: id }
+    });
+    return { 
+      "exito": true, 
+      "mensaje": "Tarea eliminada con exito",
+      "id": id,
+
   }
+}
 }

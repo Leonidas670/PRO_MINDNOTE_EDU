@@ -9,23 +9,39 @@ export class TipoTareasService {
   constructor(
     private prisma: PrismaService
   ) {}
-  create(createTipoTareaDto: CreateTipoTareaDto) {
-    return 'This action adds a new tipoTarea';
+  async create(body:any) {
+    return await this.prisma.tipoTarea.create({
+      data: body
+    });
   }
 
-  findAll() {
-    return this.prisma.tipoTarea.findMany();
+  async findAll() {
+    return await this.prisma.tipoTarea.findMany({
+      orderBy:{ tipo_nombre: 'desc' }
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tipoTarea`;
+  async findOne(id: number) {
+    return await this.prisma.tipoTarea.findFirst({
+      where: { tipo_id: id }
+    });
   }
 
-  update(id: number, updateTipoTareaDto: UpdateTipoTareaDto) {
-    return `This action updates a #${id} tipoTarea`;
+  async update(id: number, body:any) {
+    return await this.prisma.tipoTarea.update({
+      where: { tipo_id: id },
+      data: body
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tipoTarea`;
+  async remove(id: number) {
+    await this.prisma.tipoTarea.delete({
+      where: { tipo_id: id }
+    });
+    return {
+      "exito": true,
+      "mensaje": "Tipo de tarea eliminada con exito",
+      "id": id
+    };
   }
 }

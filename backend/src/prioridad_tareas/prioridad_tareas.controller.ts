@@ -8,8 +8,8 @@ export class PrioridadTareasController {
   constructor(private readonly prioridadTareasService: PrioridadTareasService) {}
 
   @Post()
-  create(@Body() createPrioridadTareaDto: CreatePrioridadTareaDto) {
-    return this.prioridadTareasService.create(createPrioridadTareaDto);
+  create(@Body() body:any) {
+    return this.prioridadTareasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class PrioridadTareasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePrioridadTareaDto: UpdatePrioridadTareaDto) {
-    return this.prioridadTareasService.update(+id, updatePrioridadTareaDto);
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Prioridad de tarea actualizada exitosamente",
+      "id": id,
+      "data": this.prioridadTareasService.update(+id, body)
+    }
   }
 
   @Delete(':id')

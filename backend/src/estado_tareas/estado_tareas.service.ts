@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { CreateEstadoTareaDto } from './dto/create-estado_tarea.dto';
 import { UpdateEstadoTareaDto } from './dto/update-estado_tarea.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -9,23 +9,40 @@ export class EstadoTareasService {
   constructor(
     private prisma: PrismaService
   ) {}
-  create(createEstadoTareaDto: CreateEstadoTareaDto) {
-    return 'This action adds a new estadoTarea';
+
+  async create(body:any) {
+    return await this.prisma.estadoTarea.create({
+      data: body
+    });
   }
 
-  findAll() {
-    return this.prisma.estadoTarea.findMany();
+  async findAll() {
+    return await this.prisma.estadoTarea.findMany({
+      orderBy: {estado_id: 'desc'}
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estadoTarea`;
+  async findOne(id: number) {
+    return await this.prisma.estadoTarea.findFirst({
+      where: {estado_id: id}
+    });
   }
 
-  update(id: number, updateEstadoTareaDto: UpdateEstadoTareaDto) {
-    return `This action updates a #${id} estadoTarea`;
+  async update(id: number, body:any) { 
+    return await this.prisma.estadoTarea.update({
+      where: {estado_id: id},
+      data: body
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estadoTarea`;
+  async remove(id: number) {
+    await this.prisma.estadoTarea.delete({
+      where: {estado_id: id}
+    });
+    return{
+      "exito": true,
+      "mensaje": "Estado de tarea eliminado exitosamente",
+      "id": id
+    }
   }
 }

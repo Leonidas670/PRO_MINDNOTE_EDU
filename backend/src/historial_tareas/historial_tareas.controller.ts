@@ -8,8 +8,8 @@ export class HistorialTareasController {
   constructor(private readonly historialTareasService: HistorialTareasService) {}
 
   @Post()
-  create(@Body() createHistorialTareaDto: CreateHistorialTareaDto) {
-    return this.historialTareasService.create(createHistorialTareaDto);
+  create(@Body() body:any) {
+    return this.historialTareasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class HistorialTareasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHistorialTareaDto: UpdateHistorialTareaDto) {
-    return this.historialTareasService.update(+id, updateHistorialTareaDto);
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Historial de tarea actualizado exitosamente",
+      "id": id,
+      "data": this.historialTareasService.update(+id, body)
+    }
   }
 
   @Delete(':id')

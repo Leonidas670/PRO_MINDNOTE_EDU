@@ -8,8 +8,8 @@ export class NotificacionesController {
   constructor(private readonly notificacionesService: NotificacionesService) {}
 
   @Post()
-  create(@Body() createNotificacioneDto: CreateNotificacioneDto) {
-    return this.notificacionesService.create(createNotificacioneDto);
+  create(@Body() body:any) {
+    return this.notificacionesService.create(body);
   }
 
   @Get()
@@ -23,9 +23,14 @@ export class NotificacionesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNotificacioneDto: UpdateNotificacioneDto) {
-    return this.notificacionesService.update(+id, updateNotificacioneDto);
-  }
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Notificación actualizada exitosamente",
+      "id": id,
+      "data": this.notificacionesService.update(+id, body)
+  };
+}
 
   @Delete(':id')
   remove(@Param('id') id: string) {

@@ -8,8 +8,8 @@ export class TareasController {
   constructor(private readonly tareasService: TareasService) {}
 
   @Post()
-  create(@Body() createTareaDto: CreateTareaDto) {
-    return this.tareasService.create(createTareaDto);
+  create(@Body() body:any) {
+    return this.tareasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class TareasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTareaDto: UpdateTareaDto) {
-    return this.tareasService.update(+id, updateTareaDto);
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito" : true,
+      "mensaje": "Tarea actualizada con exito",
+      "id": id,
+      "data": this.tareasService.update(+id, body)
+    }
   }
 
   @Delete(':id')

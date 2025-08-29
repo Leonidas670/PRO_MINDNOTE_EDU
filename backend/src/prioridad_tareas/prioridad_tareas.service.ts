@@ -10,23 +10,39 @@ export class PrioridadTareasService {
     private prisma: PrismaService
   ) {}
 
-  create(createPrioridadTareaDto: CreatePrioridadTareaDto) {
-    return 'This action adds a new prioridadTarea';
+  async create(body:any) {
+    return await this.prisma.prioridadTarea.create({
+      data: body
+  })
+ }
+
+  async findAll() {
+    return await this.prisma.prioridadTarea.findMany({
+      orderBy: {prioridad_id: 'desc'}
+    });
   }
 
-  findAll() {
-    return this.prisma.prioridadTarea.findMany();
+  async findOne(id: number) {
+    return await this.prisma.prioridadTarea.findFirst({
+      where: {prioridad_id: id}
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} prioridadTarea`;
+  async update(id: number, body:any) {
+    return await this.prisma.prioridadTarea.update({
+      where: {prioridad_id: id},
+      data: body
+    });
   }
 
-  update(id: number, updatePrioridadTareaDto: UpdatePrioridadTareaDto) {
-    return `This action updates a #${id} prioridadTarea`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} prioridadTarea`;
+  async remove(id: number) {
+    await this.prisma.prioridadTarea.delete({
+      where: {prioridad_id: id}
+    });
+    return {
+      "exito": true,
+      "mensaje": "Prioridad de tarea eliminada exitosamente",
+      "id": id
+    }
   }
 }

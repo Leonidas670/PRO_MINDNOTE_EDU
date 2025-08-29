@@ -8,8 +8,8 @@ export class EstadoTareasController {
   constructor(private readonly estadoTareasService: EstadoTareasService) {}
 
   @Post()
-  create(@Body() createEstadoTareaDto: CreateEstadoTareaDto) {
-    return this.estadoTareasService.create(createEstadoTareaDto);
+  create(@Body() body:any) {
+    return this.estadoTareasService.create(body);
   }
 
   @Get()
@@ -23,8 +23,13 @@ export class EstadoTareasController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstadoTareaDto: UpdateEstadoTareaDto) {
-    return this.estadoTareasService.update(+id, updateEstadoTareaDto);
+  update(@Param('id') id: string, @Body() body:any) {
+    return {
+      "exito": true,
+      "mensaje": "Estado de tarea actualizado exitosamente",
+      "id": id,
+      "data": this.estadoTareasService.update(+id, body)
+    };
   }
 
   @Delete(':id')

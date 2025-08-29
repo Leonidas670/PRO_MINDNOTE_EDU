@@ -9,23 +9,39 @@ export class UsuariosService {
 {} // Assuming PrismaService is imported correctly) {
     // Initialization logic if needed
   
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return 'This action adds a new usuario';
+  async create(body:any) {
+    return await this.prisma.usuario.create({
+      data: body
+    });
   }
 
-  findAll() {
-    return this.prisma.usuario.findMany()
+  async findAll() {
+    return await this.prisma.usuario.findMany({  
+      orderBy: { usuario_id: 'desc' }
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} usuario`;
+  async findOne(id: number) {
+    return await this.prisma.usuario.findFirst({
+      where: { usuario_id: id }
+  });
   }
 
-  update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-    return `This action updates a #${id} usuario`;
+  async update(id: number, body: any) {
+    return await this.prisma.usuario.update({
+      where: { usuario_id: id },
+      data: body
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: number) {
+    return await this.prisma.usuario.delete({
+      where: { usuario_id: id }
+    })
+    return {
+      "exito": true,
+      "mensaje": "Usuario eliminado",
+      "id": id
+    }
   }
 }
