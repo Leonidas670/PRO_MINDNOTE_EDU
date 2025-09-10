@@ -9,10 +9,10 @@ import { PrioridadTareasModule } from './prioridad_tareas/prioridad_tareas.modul
 import { TipoTareasModule } from './tipo_tareas/tipo_tareas.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { PreferenciasModule } from './preferencias/preferencias.module';
+
 
 @Module({
-  imports: [UsuariosModule, TareasModule, EstadoTareasModule, HistorialTareasModule, NotificacionesModule, PreferenciasModule, PrioridadTareasModule, TipoTareasModule, PrismaModule],
+  imports: [UsuariosModule, TareasModule, EstadoTareasModule, HistorialTareasModule, NotificacionesModule, PrioridadTareasModule, TipoTareasModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })

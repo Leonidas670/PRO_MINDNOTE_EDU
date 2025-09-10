@@ -17,7 +17,7 @@ function App() {
               alt="Logo MindNote.EDU"
               className="logo-navbar"
             />
-            <h1>MindNote.EDU</h1>
+            
           </a>
 
           {/* Enlaces */}
