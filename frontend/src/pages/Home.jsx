@@ -6,7 +6,7 @@ function Home() {
     <div className="home-container">
       <div className="overlay">
         <h1>Bienvenid@ a MindNote.EDU</h1>
-        <p>Tu espacio para organizar ideas, tareas y aprendizaje.</p>
+        <p>Tus ideas, tus notas, tu clase.</p>
       </div>
     </div>
   );
