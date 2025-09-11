@@ -7,7 +7,7 @@ function Sidebar() {
       <h2>MindNote.EDU</h2>
       <nav>
         <ul>
-          <li><Link to="/dashboard">🏠 Inicio</Link></li>
+          <li><Link to="/">🏠 Inicio</Link></li>
           <li><Link to="/tareas">📝 Tareas</Link></li>
           <li><Link to="/notificaciones">🔔 Notificaciones</Link></li>
           <li><Link to="/">🚪 Cerrar sesión</Link></li>

@@ -1,38 +1,74 @@
-# 🛠️ Flujo de trabajo Git – MindNote.EDU
+# 🚦 Flujo de trabajo con Git - MindNote.EDU
 
-# 1. Convención de commits
-
-- Usa mensajes claros y descriptivos en español.
-- Estructura recomendada:  
-
-
-**Tipos sugeridos:**  
-- feat: Nueva funcionalidad  
-- fix: Corrección de bug  
-- docs: Cambios en documentación  
-- style: Formato, estilos, sin cambios de lógica  
-- refactor: Refactorización de código  
-- test: Añadir o corregir tests  
-- chore: Tareas de mantenimiento
-
-**Ejemplo:**  
-
-feat: agregar formulario de creación de notas fix: corregir error al guardar nota vacía docs: actualizar README con instrucciones de instalación
-
-## 2. Frecuencia de push/pull
-
-- Realiza `git pull` antes de empezar a trabajar cada día para mantener tu rama actualizada.
-- Haz `git push` cada vez que completes una tarea pequeña o un avance significativo (mínimo una vez al día).
-- Evita acumular muchos cambios sin subirlos al repositorio.
-- Antes de hacer `push`, asegúrate de que tu rama esté actualizada con respecto a `develop` (o la rama base).
+Esta guía describe el flujo de trabajo recomendado para colaborar y mantener la calidad del código en el proyecto **MindNote.EDU**.
 
 ---
 
-## 3. Política de pull requests (PR)
+## 1. Estructura de ramas
 
-- Toda nueva funcionalidad o corrección debe ir en una rama `feature/*` o `fix/*`.
-- Cuando termines una tarea, abre un Pull Request (PR) hacia la rama `develop`.
-- El PR debe tener un título descriptivo y detallar los cambios realizados.
-- Al menos una persona del equipo debe revisar y aprobar el PR antes de fusionarlo.
-- Resuelve los conflictos antes de solicitar revisión.
-- No hagas `merge` directo a `main` ni a `develop` sin PR.
+- **main**: Rama principal y estable. Solo se hace merge de código revisado y probado.
+- **dev**: Rama de desarrollo general donde se integran los cambios antes de pasar a main.
+
+---
+
+## 2. Pasos para contribuir
+
+1. **Actualiza tu repositorio local**
+   ```bash
+   git pull origin main
+   git pull origin dev
+   ```
+
+2. **Crea una rama para tu tarea**
+   ```bash
+   git checkout -b dev
+   ```
+
+3. **Haz tus cambios y commitea**
+   ```bash
+   git add .
+   git commit -m "Descripción clara del cambio"
+   ```
+
+4. **Sincroniza tu rama con el remoto**
+   ```bash
+   git push origin dev
+   ```
+
+5. **Haz un Pull Request**
+   - Desde GitHub, crea un Pull Request de `dev` hacia `main`.
+   - Solicita revisión de código.
+
+6. **Revisión y merge**
+   - El equipo revisa el código.
+   - Si todo está correcto, se hace merge a la rama principal (`main`).
+
+---
+
+## 3. Reglas para commits
+
+- Mensajes claros y descriptivos.
+- Ejemplo:  
+  - `feat: agregar registro de usuario`
+  - `fix: corregir validación de correo en login`
+  - `docs: actualizar README`
+
+---
+
+## 4. Buenas prácticas
+
+- Sincroniza frecuentemente tu rama con `main` y `dev` para evitar conflictos.
+- No subas archivos sensibles (.env, contraseñas, etc.).
+- Usa `.gitignore` para excluir archivos innecesarios.
+- Antes de hacer merge, asegúrate que el código pase los linters y pruebas.
+- Documenta los cambios importantes en el Pull Request.
+
+---
+
+## 5. Automatizaciones
+
+- El proyecto usa **GitHub Actions** para ejecutar linters y pruebas automáticas en cada Pull Request.
+
+---
+
+**¡Sigue este flujo para mantener el proyecto organizado

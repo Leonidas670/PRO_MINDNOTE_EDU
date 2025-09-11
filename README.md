@@ -2,87 +2,137 @@
 
 **MindNote.EDU** es una aplicación de agendamiento inteligente e inclusiva que permite a cualquier persona organizar sus tareas, recibir notificaciones, mantener un historial de actividades y personalizar su experiencia con funciones de accesibilidad.
 
-Este proyecto está desarrollado con una arquitectura **Full Stack**:
-- **Frontend:** React + Vite.
-- **Backend:** Node.js + Express + MySQL.
-- **Control de versiones:** Git + GitHub.
+## 🚀 Tecnologías utilizadas
+
+**Frontend**
+- React + Vite
+- CSS3
+
+**Backend**
+- Node.js + NestJS
+- Prisma ORM
+- MySQL
+- dotenv
+
+**DevOps y control de versiones**
+- Git + GitHub
+- GitHub Actions (CI/CD)
+- Linters (Stylelint, Webhint)
 
 ---
 
 ## 📂 Estructura del proyecto
 
-La estructura del código sigue una división clara entre **frontend** y **backend**.
-
-
+```
 PRO_MINDNOTE.EDU/
 │
-├── .github/workflows/ # Automatizaciones y CI/CD con GitHub Actions
-│ └── linters.yml # Workflow para ejecutar linters automáticamente
+├── .github/workflows/           # Automatizaciones y CI/CD
+│   └── linters.yml
 │
-├── backend/ # Lógica y API del servidor
-│ ├── .env # Variables de entorno del backend
-│ ├── db.js # Configuración de conexión a la base de datos
-│ ├── index.js # Punto de entrada del backend
-│ ├── package.json # Dependencias y scripts del backend
-│ └── test-db.js # Script para probar conexión a la base de datos
+├── backend/                     # Lógica y API del servidor
+│   ├── .env                     # Variables de entorno del backend
+│   ├── prisma/                  # Esquema y migraciones de Prisma
+│   │   ├── schema.prisma
+│   │   └── migrations/
+│   ├── generated/               # Cliente generado por Prisma
+│   │   └── prisma/
+│   ├── src/                     # Código fuente del backend (NestJS)
+│   │   ├── login/               # Módulo de autenticación
+│   │   │   ├── login.service.ts
+│   │   │   └── ...
+│   │   ├── usuario/             # Módulo de usuarios
+│   │   ├── tarea/               # Módulo de tareas
+│   │   ├── notificacion/        # Módulo de notificaciones
+│   │   └── ...
+│   ├── main.ts                  # Punto de entrada de NestJS
+│   ├── package.json             # Dependencias y scripts del backend
+│   └── README.md                # Documentación del backend
 │
-├── frontend/ # Aplicación cliente
-│ ├── public/ # Archivos estáticos (HTML base, favicon, etc.)
-│ │ └── index.html
-│ │
-│ └── src/ # Código fuente del frontend
-│ ├── assets/ # Recursos estáticos
-│ │ ├── css/ # Estilos globales
-│ │ └── imgs/ # Imágenes de la app
-│ │
-│ ├── pages/ # Vistas principales
-│ │ ├── Login.jsx # Página de inicio de sesión
-│ │ └── Registro.jsx # Página de registro
-│ │
-│ ├── app.jsx # Componente raíz
-│ ├── main.jsx # Punto de arranque de React
-│ ├── package.json # Dependencias y scripts del frontend
-│ └── vite.config.js # Configuración de Vite
+├── frontend/                    # Aplicación cliente
+│   ├── public/                  # Archivos estáticos
+│   │   └── index.html
+│   ├── src/                     # Código fuente del frontend
+│   │   ├── assets/              # Recursos estáticos
+│   │   │   ├── css/
+│   │   │   └── imgs/
+│   │   ├── styles/              # Estilos CSS por página
+│   │   │   ├── Register.css
+│   │   │   └── Login.css
+│   │   ├── pages/               # Vistas principales
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   └── Dashboard.jsx    # (por crear)
+│   │   ├── app.jsx              # Componente raíz
+│   │   ├── main.jsx             # Punto de arranque de React
+│   │   └── ...
+│   ├── package.json             # Dependencias y scripts del frontend
+│   └── vite.config.js           # Configuración de Vite
 │
-├── node_modules/ # Dependencias instaladas (autogenerado)
+├── node_modules/                # Dependencias instaladas (autogenerado)
 │
-├── .env # Variables de entorno globales
-├── .gitignore # Archivos/carpetas ignorados por Git
-├── .hintrc # Configuración de Webhint
-├── stylelint.rc.json # Configuración de Stylelint
-├── Git_Workflow.md # Guía de flujo de trabajo con Git
-├── Guia_EstandaresCod.md # Guía de estándares de codificación
-├── package.json # Dependencias y scripts generales
-├── package-lock.json # Versiones exactas de dependencias
-└── README.md # Documentación principal
+├── .env                         # Variables de entorno globales
+├── .gitignore                   # Archivos/carpetas ignorados por Git
+├── .hintrc                      # Configuración de Webhint
+├── stylelint.rc.json            # Configuración de Stylelint
+├── Git_Workflow.md              # Guía de flujo de trabajo con Git
+├── Guia_EstandaresCod.md        # Guía de estándares de codificación
+├── package.json                 # Dependencias y scripts generales
+├── package-lock.json            # Versiones exactas de dependencias
+└── README.md                    # Documentación principal
+```
 
+---
 
-🛠 Tecnologías utilizadas
-Frontend
+## ⚙️ Instalación y uso
 
-React → Librería para construir interfaces de usuario.
+1. **Clona el repositorio**
+   ```
+   git clone https://github.com/tu-usuario/PRO_MINDNOTE_EDU.git
+   ```
 
-Vite → Herramienta rápida de desarrollo y build.
+2. **Instala dependencias**
+   - Backend:
+     ```
+     cd backend
+     npm install
+     npx prisma generate
+     npx prisma migrate deploy
+     ```
+   - Frontend:
+     ```
+     cd frontend
+     npm install
+     ```
 
-CSS3 → Estilización y diseño.
+3. **Configura las variables de entorno**
+   - Edita el archivo `.env` en `backend/` con los datos de tu base de datos MySQL.
 
-Backend
+4. **Ejecuta el backend**
+   ```
+   npm run start:dev
+   ```
 
-Node.js → Entorno de ejecución de JavaScript.
+5. **Ejecuta el frontend**
+   ```
+   npm run dev
+   ```
 
-Express → Framework web para Node.js.
+---
 
-MySQL → Base de datos relacional.
+## 📌 Convenciones y guías
 
-dotenv → Manejo de variables de entorno.
+- Código limpio y estandarizado → Ver `Guia_EstandaresCod.md`
+- Flujo de trabajo con Git → Ver `Git_Workflow.md`
+- Validaciones automáticas → Linters y herramientas configuradas (Stylelint, Webhint)
 
+---
 
-📌 Convenciones y guías
+## 👩‍💻 Desarrollado por
 
-Código limpio y estandarizado → Ver Guia_EstandaresCod.md.
+Laura Buritica
 
-Flujo de trabajo con Git → Ver Git_Workflow.md.
+---
 
-Validaciones automáticas → Linters y herramientas configuradas (Stylelint, Webhint).
+## 📄 Licencia
 
-Desarrollado por Laura Buritica
+Este proyecto está bajo
