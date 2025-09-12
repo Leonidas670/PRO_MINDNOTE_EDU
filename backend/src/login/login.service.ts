@@ -20,7 +20,10 @@ export class LoginService {
       
 
       if(!existe){
-        return { success: false, mensaje: "Credenciales incorrectas" }
+        return { success: false, 
+          mensaje: "Credenciales incorrectas"
+        
+        }
       }else{
         return { success: true, mensaje: "Credenciales correctas", "data": existe } 
       }

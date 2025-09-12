@@ -5,14 +5,43 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TareasService {
+
   constructor(
     private prisma: PrismaService
   ) {}
 
   async create(body:any) {
+
+    const [hours, minutes] = body.tarea_hora.split(":").map(Number);
+
+    // Crear un Date (puede ser hoy, la fecha no importa porque MySQL solo guardará la hora)
+    const hora = new Date();
+    hora.setHours(hours, minutes, 0, 0);
+
+    console.log(body)
+
     return await this.prisma.tarea.create({
-      data: body
+      
+      data: {
+        "tarea_titulo": body.tarea_titulo,
+        "tarea_descripcion": body.tarea_descripcion,
+        "tarea_fechaLimite": new Date(body.tarea_fechaLimite),
+        "tarea_hora": hora,
+      estado: {
+        connect: { estado_id: parseInt(body.estado_id)},   // conecta con un estado existente
+      },
+      prioridad: {
+        connect: { prioridad_id: Number(body.prioridad_id) }, // conecta con una prioridad existente
+      },
+      tipo: {
+        connect: { tipo_id: Number(body.tipo_id) },      // conecta con un tipo existente
+      },
+      usuario: {
+        connect: { usuario_id: Number(body.usuario_id) },   // conecta con un usuario existente
+      },  
+      }
     });
+    console.log(body)
   }
 
   async findAll() {

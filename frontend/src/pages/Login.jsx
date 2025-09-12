@@ -23,10 +23,19 @@ function Login() {
       usuario_contrasena,
     });
 
+
+
     // 🔹 Aquí validamos la respuesta del backend
     if (response.data.success) {
+      //localstorage
+      const usuario_id= response.data.data.usuario_id;
+      localStorage.removeItem("user_id")
+      localStorage.setItem("user_id", usuario_id);
       setModalMessage("¡Inicio de sesión exitoso!");
+      
       setShowModal(true);
+
+
 
       // Guardar token si existe
       if (response.data.token) {
