@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 import "./../styles/Tasks.css";
 
 const Tasks = () => {
@@ -11,9 +12,37 @@ const Tasks = () => {
     tarea_hora: "",
     estado_id: "",
     prioridad_id: "",
-    usuario_id:localStorage.getItem("user_id"),
+    usuario_id: localStorage.getItem("user_id"),
     tipo_id: "",
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState({ title: "", message: "" });
+
+  // 📌 Nuevo estado para guardar las tareas
+  const [tareas, setTareas] = useState([]);
+
+  // 📌 Función para cargar tareas del usuario logueado
+  const fetchTareas = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/tareas");
+      if (response.ok) {
+        const data = await response.json();
+        const userId = Number(localStorage.getItem("user_id"));
+
+        // Filtrar solo las tareas del usuario logueado
+        const userTasks = data.filter((tarea) => tarea.usuario_id === userId);
+        setTareas(userTasks);
+      }
+    } catch (error) {
+      console.error("Error cargando tareas:", error);
+    }
+  };
+
+  // 📌 Cargar tareas cuando se monta el componente
+  useEffect(() => {
+    fetchTareas();
+  }, []);
 
   // Manejo de cambios
   const handleChange = (e) => {
@@ -35,7 +64,12 @@ const Tasks = () => {
       });
 
       if (response.ok) {
-        alert("Tarea registrada con éxito ✅");
+        setModalInfo({
+          title: "¡Éxito!",
+          message: "Tarea registrada con éxito ✅",
+        });
+        setModalOpen(true);
+
         setFormData({
           tarea_titulo: "",
           tarea_descripcion: "",
@@ -43,32 +77,36 @@ const Tasks = () => {
           tarea_hora: "",
           estado_id: "",
           prioridad_id: "",
-          usuario_id:"",
+          usuario_id: localStorage.getItem("user_id"),
           tipo_id: "",
         });
+
+        // 📌 Volver a cargar la lista de tareas después de crear una nueva
+        fetchTareas();
       } else {
-        alert("Error al registrar la tarea ❌");
+        setModalInfo({
+          title: "Error",
+          message: "Error al registrar la tarea ❌",
+        });
+        setModalOpen(true);
       }
     } catch (error) {
       console.error(error);
-      alert("Error de conexión con el servidor ❌");
+      setModalInfo({
+        title: "Error",
+        message: "Error de conexión con el servidor ❌",
+      });
+      setModalOpen(true);
     }
   };
 
-  return   localStorage.getItem("user_id") === null ?  (
-    <div>
-      no autenticado
-    </div>
-  ):
-    (
-        <div className="dashboard-container">
-      {/* Sidebar igual que en Dashboard */}
+  return localStorage.getItem("user_id") === null ? (
+    <div>no autenticado</div>
+  ) : (
+    <div className="dashboard-container">
       <Sidebar />
-      
       <div className="dashboard-main">
-        {/* Header igual que en Dashboard */}
         <Header />
-        
         <div className="dashboard-content">
           <h2>Gestión de Tareas</h2>
 
@@ -155,21 +193,37 @@ const Tasks = () => {
               <button type="submit">Guardar Tarea</button>
             </form>
 
-            {/* Aquí podrás poner lista de tareas en el futuro */}
+            {/* 📌 Lista de tareas */}
             <div className="tasks-list">
               <h3>📌 Lista de Tareas</h3>
-              <p>Aquí se mostrarán las tareas guardadas...</p>
+              {tareas.length === 0 ? (
+                <p>No tienes tareas registradas.</p>
+              ) : (
+                <ul>
+                  {tareas.map((tarea) => (
+                    <li key={tarea.tarea_id}>
+                      <strong>{tarea.tarea_titulo}</strong> <br />
+                      {tarea.tarea_descripcion} <br />
+                      ⏰ {new Date(tarea.tarea_hora).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - 📅{" "}
+                      {new Date(tarea.tarea_fechaLimite).toLocaleDateString()}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal de confirmación */}
+      <Modal
+        isOpen={modalOpen}
+        title={modalInfo.title}
+        message={modalInfo.message}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
-
-
-    )
-
-    
-  
+  );
 };
 
 export default Tasks;

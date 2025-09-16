@@ -46,6 +46,7 @@ export class TareasService {
 
   async findAll() {
     return await this.prisma.tarea.findMany({
+      
       orderBy: { tarea_id: 'desc' }
     });
   }
