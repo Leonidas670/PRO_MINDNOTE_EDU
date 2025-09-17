@@ -1,8 +1,8 @@
-/* src/styles/Navbar.css */
+
 
 :root {
-  --navbar-bg: #df31b6; /* Morado */
-  --navbar-hover: #cc00ff; /* Morado oscuro */
+  --navbar-bg: #df31b6; 
+  --navbar-hover: #cc00ff; 
   --navbar-text: #ffffff;
 }
 
@@ -61,7 +61,7 @@
   background-color: var(--navbar-hover);
 }
 
-/* Botón hamburguesa */
+
 .menu-btn {
   display: none;
   flex-direction: column;
@@ -79,7 +79,7 @@
   transition: all 0.3s ease;
 }
 
-/* Animación del botón cuando está abierto */
+
 .menu-btn.open span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -90,7 +90,7 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* 🔥 Responsive para móvil */
+
 @media (max-width: 768px) {
   .menu-btn {
     display: flex;
