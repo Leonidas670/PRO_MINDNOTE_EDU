@@ -19,10 +19,13 @@ const Tasks = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({ title: "", message: "" });
 
-  // 📌 Nuevo estado para guardar las tareas
+ 
   const [tareas, setTareas] = useState([]);
 
-  // 📌 Función para cargar tareas del usuario logueado
+  
+  const today = new Date().toISOString().split("T")[0];
+
+  
   const fetchTareas = async () => {
     try {
       const response = await fetch("http://localhost:3001/tareas");
@@ -39,12 +42,12 @@ const Tasks = () => {
     }
   };
 
-  // 📌 Cargar tareas cuando se monta el componente
+  
   useEffect(() => {
     fetchTareas();
   }, []);
 
-  // Manejo de cambios
+  // Manejo de cambios del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -81,7 +84,7 @@ const Tasks = () => {
           tipo_id: "",
         });
 
-        // 📌 Volver a cargar la lista de tareas después de crear una nueva
+        // Recargar lista de tareas
         fetchTareas();
       } else {
         setModalInfo({
@@ -98,6 +101,12 @@ const Tasks = () => {
       });
       setModalOpen(true);
     }
+  };
+
+  // Estado para manejar acordeón
+  const [abiertos, setAbiertos] = useState({});
+  const toggleGrupo = (tipo) => {
+    setAbiertos((prev) => ({ ...prev, [tipo]: !prev[tipo] }));
   };
 
   return localStorage.getItem("user_id") === null ? (
@@ -137,6 +146,7 @@ const Tasks = () => {
                 name="tarea_fechaLimite"
                 value={formData.tarea_fechaLimite}
                 onChange={handleChange}
+                min={today}   
                 required
               />
 
@@ -185,7 +195,7 @@ const Tasks = () => {
                 required
               >
                 <option value="">Seleccione tipo</option>
-                <option value="1">Academico</option>
+                <option value="1">Académico</option>
                 <option value="2">Personal</option>
                 <option value="3">Recordatorio</option>
               </select>
@@ -193,22 +203,69 @@ const Tasks = () => {
               <button type="submit">Guardar Tarea</button>
             </form>
 
-            {/* 📌 Lista de tareas */}
+            {/*Lista de tareas con acordeón */}
             <div className="tasks-list">
               <h3>📌 Lista de Tareas</h3>
               {tareas.length === 0 ? (
                 <p>No tienes tareas registradas.</p>
               ) : (
-                <ul>
-                  {tareas.map((tarea) => (
-                    <li key={tarea.tarea_id}>
-                      <strong>{tarea.tarea_titulo}</strong> <br />
-                      {tarea.tarea_descripcion} <br />
-                      ⏰ {new Date(tarea.tarea_hora).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} - 📅{" "}
-                      {new Date(tarea.tarea_fechaLimite).toLocaleDateString()}
-                    </li>
-                  ))}
-                </ul>
+                (() => {
+                  // Agrupar tareas por tipo
+                  const grupos = {
+                    1: { nombre: "Académico", tareas: [] },
+                    2: { nombre: "Personal", tareas: [] },
+                    3: { nombre: "Recordatorio", tareas: [] },
+                  };
+
+                  tareas.forEach((t) => {
+                    if (grupos[t.tipo_id]) {
+                      grupos[t.tipo_id].tareas.push(t);
+                    }
+                  });
+
+                  return (
+                    <div className="accordion">
+                      {Object.entries(grupos).map(([tipo, grupo]) => (
+                        <div key={tipo} className="accordion-item">
+                          <button
+                            className="accordion-header"
+                            onClick={() => toggleGrupo(tipo)}
+                          >
+                            {grupo.nombre} ({grupo.tareas.length})
+                          </button>
+
+                          {abiertos[tipo] && grupo.tareas.length > 0 && (
+                            <ul className="accordion-content">
+                              {grupo.tareas.map((tarea) => (
+                                <li key={tarea.tarea_id}>
+                                  <strong>{tarea.tarea_titulo}</strong> <br />
+                                  {tarea.tarea_descripcion} <br />
+                                  ⏰{" "}
+                                  {new Date(
+                                    tarea.tarea_hora
+                                  ).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })}{" "}
+                                  - 📅{" "}
+                                  {new Date(
+                                    tarea.tarea_fechaLimite
+                                  ).toLocaleDateString()}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {abiertos[tipo] && grupo.tareas.length === 0 && (
+                            <p className="accordion-empty">
+                              No hay tareas en esta categoría.
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()
               )}
             </div>
           </div>
