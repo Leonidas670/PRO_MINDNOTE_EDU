@@ -25,7 +25,7 @@ function Login() {
 
 
 
-    // 🔹 Aquí validamos la respuesta del backend
+    
     if (response.data.success) {
       //localstorage
       const usuario_id= response.data.data.usuario_id;
@@ -42,7 +42,7 @@ function Login() {
         localStorage.setItem("token", response.data.token);
       }
     } else {
-      setModalMessage(response.data.message || "Usuario o contraseña incorrectos.");
+      setModalMessage(response.data.message || "Correo electrónico o contraseña incorrectos.");
       setShowModal(true);
     }
   } catch (err) {

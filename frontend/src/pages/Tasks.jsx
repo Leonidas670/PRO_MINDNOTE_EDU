@@ -212,9 +212,9 @@ const Tasks = () => {
                 (() => {
                   // Agrupar tareas por tipo
                   const grupos = {
-                    1: { nombre: "Académico", tareas: [] },
-                    2: { nombre: "Personal", tareas: [] },
-                    3: { nombre: "Recordatorio", tareas: [] },
+                    1: { nombre: "Académico🎓", tareas: [] },
+                    2: { nombre: "Personal👋", tareas: [] },
+                    3: { nombre: "Recordatorio⌚", tareas: [] },
                   };
 
                   tareas.forEach((t) => {

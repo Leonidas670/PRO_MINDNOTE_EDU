@@ -14,7 +14,7 @@ function Register() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const navigate = useNavigate(); // 👉 para redirigir
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -23,8 +23,23 @@ function Register() {
     });
   };
 
+  const validarContrasena = (password) => {
+    // Min 8 caracteres, al menos 1 letra y 1 número
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validarContrasena(formData.usuario_contrasena)) {
+      setModalMessage(
+        "La contraseña debe tener al menos 8 caracteres, incluir una letra y un número."
+      );
+      setModalOpen(true);
+      return;
+    }
+
     try {
       await axios.post("http://localhost:3001/usuarios", formData);
       setModalMessage("¡Registro exitoso!");
@@ -36,7 +51,6 @@ function Register() {
 
   const closeModal = () => {
     setModalOpen(false);
-    // 👉 Si fue exitoso, redirigir al login
     if (modalMessage === "¡Registro exitoso!") {
       navigate("/login");
     }
