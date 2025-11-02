@@ -14,7 +14,8 @@
     ],
     "build": {
         "env": {
-            "PRISMA_GENERATE_COMMAND": "npm run vercel-build"
+            "PRISMA_GENERATE_COMMAND": "npm run vercel-build",
+            "PRISMA_CLIENT_OUTPUT": "./generated/prisma"
         }
     }
 }
