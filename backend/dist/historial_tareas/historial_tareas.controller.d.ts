@@ -4,24 +4,24 @@ export declare class HistorialTareasController {
     constructor(historialTareasService: HistorialTareasService);
     create(body: any): Promise<{
         usuario_id: number;
-        estado_id: number;
         tarea_id: number;
-        historial_id: number;
         historial_fechaRegistro: Date;
+        historial_id: number;
+        estado_id: number;
     }>;
     findAll(): Promise<{
         usuario_id: number;
-        estado_id: number;
         tarea_id: number;
-        historial_id: number;
         historial_fechaRegistro: Date;
+        historial_id: number;
+        estado_id: number;
     }[]>;
     findOne(id: string): Promise<{
         usuario_id: number;
-        estado_id: number;
         tarea_id: number;
-        historial_id: number;
         historial_fechaRegistro: Date;
+        historial_id: number;
+        estado_id: number;
     } | null>;
     update(id: string, body: any): {
         exito: boolean;
@@ -29,10 +29,10 @@ export declare class HistorialTareasController {
         id: string;
         data: Promise<{
             usuario_id: number;
-            estado_id: number;
             tarea_id: number;
-            historial_id: number;
             historial_fechaRegistro: Date;
+            historial_id: number;
+            estado_id: number;
         }>;
     };
     remove(id: string): Promise<{

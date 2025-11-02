@@ -3,32 +3,32 @@ export declare class NotificacionesService {
     private prisma;
     constructor(prisma: PrismaService);
     create(body: any): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     }>;
     findAll(): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     }[]>;
     findOne(id: number): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     } | null>;
     update(id: number, body: any): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     }>;
     remove(id: number): Promise<{
         exito: boolean;

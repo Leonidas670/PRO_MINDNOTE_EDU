@@ -3,20 +3,20 @@ export declare class PrioridadTareasService {
     private prisma;
     constructor(prisma: PrismaService);
     create(body: any): Promise<{
-        prioridad_id: number;
         prioridad_nombre: string;
+        prioridad_id: number;
     }>;
     findAll(): Promise<{
-        prioridad_id: number;
         prioridad_nombre: string;
+        prioridad_id: number;
     }[]>;
     findOne(id: number): Promise<{
-        prioridad_id: number;
         prioridad_nombre: string;
+        prioridad_id: number;
     } | null>;
     update(id: number, body: any): Promise<{
-        prioridad_id: number;
         prioridad_nombre: string;
+        prioridad_id: number;
     }>;
     remove(id: number): Promise<{
         exito: boolean;

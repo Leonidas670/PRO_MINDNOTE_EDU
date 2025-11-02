@@ -4,10 +4,10 @@ export declare class TareasController {
     constructor(tareasService: TareasService);
     create(body: any): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -15,10 +15,10 @@ export declare class TareasController {
     }>;
     findAll(): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -26,10 +26,10 @@ export declare class TareasController {
     }[]>;
     findOne(id: string): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -41,10 +41,10 @@ export declare class TareasController {
         id: string;
         data: Promise<{
             usuario_id: number;
-            estado_id: number;
-            prioridad_id: number;
             tipo_id: number;
+            prioridad_id: number;
             tarea_id: number;
+            estado_id: number;
             tarea_titulo: string;
             tarea_descripcion: string;
             tarea_fechaLimite: Date;

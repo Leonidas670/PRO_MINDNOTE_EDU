@@ -4,10 +4,10 @@ export declare class TareasService {
     constructor(prisma: PrismaService);
     create(body: any): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -15,10 +15,10 @@ export declare class TareasService {
     }>;
     findAll(): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -26,10 +26,10 @@ export declare class TareasService {
     }[]>;
     findOne(id: number): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;
@@ -37,10 +37,10 @@ export declare class TareasService {
     } | null>;
     update(id: number, body: any): Promise<{
         usuario_id: number;
-        estado_id: number;
-        prioridad_id: number;
         tipo_id: number;
+        prioridad_id: number;
         tarea_id: number;
+        estado_id: number;
         tarea_titulo: string;
         tarea_descripcion: string;
         tarea_fechaLimite: Date;

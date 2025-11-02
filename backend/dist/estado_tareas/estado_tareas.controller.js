@@ -15,12 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EstadoTareasController = void 0;
 const common_1 = require("@nestjs/common");
 const estado_tareas_service_1 = require("./estado_tareas.service");
+const create_estado_tarea_dto_1 = require("./dto/create-estado_tarea.dto");
+const update_estado_tarea_dto_1 = require("./dto/update-estado_tarea.dto");
 let EstadoTareasController = class EstadoTareasController {
     constructor(estadoTareasService) {
         this.estadoTareasService = estadoTareasService;
     }
-    create(body) {
-        return this.estadoTareasService.create(body);
+    create(createEstadoTareaDto) {
+        return this.estadoTareasService.create(createEstadoTareaDto);
     }
     findAll() {
         return this.estadoTareasService.findAll();
@@ -28,13 +30,8 @@ let EstadoTareasController = class EstadoTareasController {
     findOne(id) {
         return this.estadoTareasService.findOne(+id);
     }
-    update(id, body) {
-        return {
-            "exito": true,
-            "mensaje": "Estado de tarea actualizado exitosamente",
-            "id": id,
-            "data": this.estadoTareasService.update(+id, body)
-        };
+    update(id, updateEstadoTareaDto) {
+        return this.estadoTareasService.update(+id, updateEstadoTareaDto);
     }
     remove(id) {
         return this.estadoTareasService.remove(+id);
@@ -45,7 +42,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_estado_tarea_dto_1.CreateEstadoTareaDto]),
     __metadata("design:returntype", void 0)
 ], EstadoTareasController.prototype, "create", null);
 __decorate([
@@ -66,7 +63,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, update_estado_tarea_dto_1.UpdateEstadoTareaDto]),
     __metadata("design:returntype", void 0)
 ], EstadoTareasController.prototype, "update", null);
 __decorate([

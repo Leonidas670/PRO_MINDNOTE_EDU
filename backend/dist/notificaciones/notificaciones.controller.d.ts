@@ -3,36 +3,36 @@ export declare class NotificacionesController {
     private readonly notificacionesService;
     constructor(notificacionesService: NotificacionesService);
     create(body: any): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     }>;
     findAll(): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     }[]>;
     findOne(id: string): Promise<{
-        tarea_id: number;
-        notificacion_id: number;
         notificacion_mensaje: string;
         notificacion_fechaEnvio: Date;
         notificacion_entregado: boolean;
+        notificacion_id: number;
+        tarea_id: number;
     } | null>;
     update(id: string, body: any): {
         exito: boolean;
         mensaje: string;
         id: string;
         data: Promise<{
-            tarea_id: number;
-            notificacion_id: number;
             notificacion_mensaje: string;
             notificacion_fechaEnvio: Date;
             notificacion_entregado: boolean;
+            notificacion_id: number;
+            tarea_id: number;
         }>;
     };
     remove(id: string): Promise<{
