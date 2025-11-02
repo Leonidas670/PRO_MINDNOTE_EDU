@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  usuario_id         Int              @id @default(autoincrement())
+  usuario_nombre     String           @db.VarChar(50)
+  usuario_apellido   String           @db.VarChar(50)
+  usuario_correo     String           @unique(map: "usuario_correo") @db.VarChar(100)
+  usuario_contrasena String           @db.VarChar(255)
+  usuario_rol        String           @db.VarChar(20)
+  historial          HistorialTarea[]
+  tareas             Tarea[]
+
+  @@map("usuarios")
+}
+
+model EstadoTarea {
+  estado_id     Int              @id @default(autoincrement())
+  estado_nombre String           @unique(map: "estado_nombre") @db.VarChar(30)
+  historiales   HistorialTarea[]
+  tareas        Tarea[]
+
+  @@map("estado_tareas")
+}
+
+model PrioridadTarea {
+  prioridad_id     Int     @id @default(autoincrement())
+  prioridad_nombre String  @unique(map: "prioridad_nombre") @db.VarChar(30)
+  tareas           Tarea[]
+
+  @@map("prioridad_tareas")
+}
+
+model TipoTarea {
+  tipo_id     Int     @id @default(autoincrement())
+  tipo_nombre String  @unique(map: "tipo_nombre") @db.VarChar(30)
+  tareas      Tarea[]
+
+  @@map("tipo_tareas")
+}
+
+model Tarea {
+  tarea_id          Int              @id @default(autoincrement())
+  tarea_titulo      String           @db.VarChar(100)
+  tarea_descripcion String           @db.Text
+  tarea_fechaLimite DateTime         @db.Date
+  tarea_hora        DateTime         @db.Time(0)
+  estado_id         Int
+  prioridad_id      Int
+  usuario_id        Int
+  tipo_id           Int
+  historial         HistorialTarea[]
+  notificaciones    Notificacion[]
+  tipo              TipoTarea        @relation(fields: [tipo_id], references: [tipo_id], onDelete: Cascade, map: "fk_tareas_tipo")
+  estado            EstadoTarea      @relation(fields: [estado_id], references: [estado_id], map: "tareas_ibfk_1")
+  prioridad         PrioridadTarea   @relation(fields: [prioridad_id], references: [prioridad_id], map: "tareas_ibfk_3")
+  usuario           Usuario          @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade, map: "tareas_ibfk_4")
+
+  @@index([estado_id], map: "estado_id")
+  @@index([tipo_id], map: "fk_tareas_tipo")
+  @@index([prioridad_id], map: "prioridad_id")
+  @@index([usuario_id], map: "usuario_id")
+  @@map("tareas")
+}
+
+model HistorialTarea {
+  historial_id            Int         @id @default(autoincrement())
+  historial_fechaRegistro DateTime    @default(now()) @db.DateTime(0)
+  tarea_id                Int
+  usuario_id              Int
+  estado_id               Int
+  tarea                   Tarea       @relation(fields: [tarea_id], references: [tarea_id], onDelete: Cascade, map: "historial_tareas_ibfk_1")
+  usuario                 Usuario     @relation(fields: [usuario_id], references: [usuario_id], onDelete: Cascade, map: "historial_tareas_ibfk_2")
+  estado                  EstadoTarea @relation(fields: [estado_id], references: [estado_id], map: "historial_tareas_ibfk_3")
+
+  @@index([estado_id], map: "estado_id")
+  @@index([tarea_id], map: "tarea_id")
+  @@index([usuario_id], map: "usuario_id")
+  @@map("historial_tareas")
+}
+
+model Notificacion {
+  notificacion_id         Int      @id @default(autoincrement())
+  notificacion_mensaje    String   @db.Text
+  notificacion_fechaEnvio DateTime @default(now()) @db.DateTime(0)
+  notificacion_entregado  Boolean  @default(false)
+  tarea_id                Int
+  tarea                   Tarea    @relation(fields: [tarea_id], references: [tarea_id], onDelete: Cascade, map: "notificaciones_ibfk_1")
+
+  @@index([tarea_id], map: "tarea_id")
+  @@map("notificaciones")
+}

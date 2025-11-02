@@ -1,0 +1,240 @@
+.tasks-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 20px; 
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ff9a9e, #a18cd1, #fbc2eb);
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.task-form h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #7b2cbf;
+}
+
+
+.task-form input,
+.task-form textarea,
+.task-form select {
+  padding: 6px 8px;
+  font-size: 13px;
+  border: 2px solid #a200ff;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-form input:focus,
+.task-form textarea:focus,
+.task-form select:focus {
+  border-color: #9d4edd;
+  box-shadow: 0 0 6px #c77dff;
+}
+
+
+.task-form textarea {
+  resize: none;
+  min-height: 50px;
+}
+
+
+.task-form label {
+  font-size: 13px;
+  margin-bottom: 2px;
+  font-weight: 500;
+  color: #5a189a;
+}
+
+
+.task-form button {
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #9d4edd, #ff6ec7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.task-form button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #7b2cbf, #ff85d8);
+}
+
+.modal-content {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+  width: 70%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+
+ 
+  border: 1px solid transparent;
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(120deg, #ff4eb8, #9d4edd);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+
+.modal-content h3 {
+  color: #9d4edd;
+  font-size: 22px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+
+.modal-content p {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+
+.modal-content button {
+  background: linear-gradient(90deg, #9d4edd, #ff4eb8);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.modal-content button:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+
+.tasks-list {
+  flex: 2;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  min-height: 200px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.tasks-list h2 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #7b2cbf;
+}
+
+
+
+.tasks-list {
+  background: linear-gradient(135deg, #ffffffcc, #ffffff99);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tasks-list h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #5a189a; /* Morado oscuro */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accordion-item {
+  margin-bottom: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.accordion-header {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #e0aaff, #c77dff);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(135deg, #c77dff, #9d4edd);
+}
+
+.accordion-content {
+  padding: 12px 16px;
+  background: #fdfdff;
+  list-style: none;
+}
+
+.accordion-content li {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: #f3e9ff;
+  border-left: 4px solid #9d4edd;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.accordion-content li:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 6px rgba(157, 78, 221, 0.3);
+}
+
+.accordion-empty {
+  padding: 12px 16px;
+  font-style: italic;
+  color: #666;
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

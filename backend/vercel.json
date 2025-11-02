@@ -1,0 +1,18 @@
+{
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "functions": {
+    "dist/main.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
+}
