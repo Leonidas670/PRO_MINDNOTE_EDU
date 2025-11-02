@@ -2,11 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
 const app_module_1 = require("./app.module");
+const platform_express_1 = require("@nestjs/platform-express");
+const express = require("express");
+const expressApp = express();
+const adapter = new platform_express_1.ExpressAdapter(expressApp);
 async function bootstrap() {
-    var _a;
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, adapter);
     app.enableCors();
-    await app.listen((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3001);
+    await app.init();
 }
 bootstrap();
+exports.default = expressApp;
 //# sourceMappingURL=main.js.map

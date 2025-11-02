@@ -10,7 +10,14 @@ export declare class LoginService {
     } | {
         success: boolean;
         mensaje: string;
-        data: any;
+        data: {
+            usuario_id: number;
+            usuario_nombre: string;
+            usuario_apellido: string;
+            usuario_correo: string;
+            usuario_contrasena: string;
+            usuario_rol: string;
+        };
     }>;
     findAll(): string;
     findOne(id: number): string;
