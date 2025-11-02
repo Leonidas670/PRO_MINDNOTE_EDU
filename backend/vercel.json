@@ -1,14 +1,11 @@
 {
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@vercel/node"
     }
-  },
-  "functions": {
-    "dist/main.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
