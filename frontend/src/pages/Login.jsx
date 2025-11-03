@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./../styles/Login.css";
-import axios from "axios";
+import api from "./../service/api";
 
 
 function Login() {
@@ -18,7 +18,7 @@ function Login() {
   setModalMessage("");
 
   try {
-    const response = await axios.post("http://localhost:3001/login", {
+    const response = await api.post("/login", {
       usuario_correo,
       usuario_contrasena,
     });

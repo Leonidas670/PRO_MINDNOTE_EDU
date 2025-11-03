@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
 import "./../styles/Tasks.css";
+import api from "../service/api";
 
 const Tasks = () => {
   const [formData, setFormData] = useState({
@@ -28,15 +29,10 @@ const Tasks = () => {
   
   const fetchTareas = async () => {
     try {
-      const response = await fetch("http://localhost:3001/tareas");
-      if (response.ok) {
-        const data = await response.json();
-        const userId = Number(localStorage.getItem("user_id"));
-
-        // Filtrar solo las tareas del usuario logueado
-        const userTasks = data.filter((tarea) => tarea.usuario_id === userId);
-        setTareas(userTasks);
-      }
+      const response = await api.get("/tareas");
+      const userId = Number(localStorage.getItem("user_id"));
+      const userTasks = response.data.filter((tarea) => tarea.usuario_id === userId);
+      setTareas(userTasks);
     } catch (error) {
       console.error("Error cargando tareas:", error);
     }
@@ -60,44 +56,31 @@ const Tasks = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/tareas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      await api.post("/tareas", formData);
+      setModalInfo({
+        title: "¡Éxito!",
+        message: "Tarea registrada con éxito ✅",
+      });
+      setModalOpen(true);
+
+      setFormData({
+        tarea_titulo: "",
+        tarea_descripcion: "",
+        tarea_fechaLimite: "",
+        tarea_hora: "",
+        estado_id: "",
+        prioridad_id: "",
+        usuario_id: localStorage.getItem("user_id"),
+        tipo_id: "",
       });
 
-      if (response.ok) {
-        setModalInfo({
-          title: "¡Éxito!",
-          message: "Tarea registrada con éxito ✅",
-        });
-        setModalOpen(true);
-
-        setFormData({
-          tarea_titulo: "",
-          tarea_descripcion: "",
-          tarea_fechaLimite: "",
-          tarea_hora: "",
-          estado_id: "",
-          prioridad_id: "",
-          usuario_id: localStorage.getItem("user_id"),
-          tipo_id: "",
-        });
-
-        // Recargar lista de tareas
-        fetchTareas();
-      } else {
-        setModalInfo({
-          title: "Error",
-          message: "Error al registrar la tarea ❌",
-        });
-        setModalOpen(true);
-      }
+      // Recargar lista de tareas
+      fetchTareas();
     } catch (error) {
       console.error(error);
       setModalInfo({
         title: "Error",
-        message: "Error de conexión con el servidor ❌",
+        message: "Error al registrar la tarea ❌",
       });
       setModalOpen(true);
     }

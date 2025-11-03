@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./../styles/Register.css";
-import axios from "axios";
+import api from "./../service/api";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -41,7 +41,7 @@ function Register() {
     }
 
     try {
-      await axios.post("http://localhost:3001/usuarios", formData);
+      await api.post("/usuarios", formData);
       setModalMessage("¡Registro exitoso!");
     } catch (error) {
       setModalMessage("Error al registrar. Intenta de nuevo.");
