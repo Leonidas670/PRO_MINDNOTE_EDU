@@ -5,7 +5,7 @@
             "src": "dist/main.js",
             "use": "@vercel/node",
             "config": {
-                "includeFiles": ["dist/**", "node_modules/**", "prisma/schema.prisma"]
+                "includeFiles": ["dist/**", "prisma/schema.prisma"]
             }
         }
     ],
