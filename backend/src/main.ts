@@ -9,7 +9,7 @@ const adapter = new ExpressAdapter(expressApp);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, adapter);
   app.enableCors({
-    origin: ['https://www.kalonitinere.site', 'http://localhost:5173'],
+    origin: ['https://www.kalonitinere.site','kalonitinere.site', 'http://localhost:5173'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
