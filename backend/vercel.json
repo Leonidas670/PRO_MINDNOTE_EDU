@@ -3,7 +3,10 @@
     "builds": [
         {
             "src": "dist/main.js",
-            "use": "@vercel/node"
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": ["dist/**", "node_modules/**", "prisma/schema.prisma"]
+            }
         }
     ],
     "routes": [
@@ -11,11 +14,5 @@
             "src": "/(.*)",
             "dest": "dist/main.js"
         }
-    ],
-    "build": {
-        "env": {
-            "PRISMA_GENERATE_COMMAND": "npm run vercel-build",
-            "PRISMA_CLIENT_OUTPUT": "./generated/prisma"
-        }
-    }
+    ]
 }
