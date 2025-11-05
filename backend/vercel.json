@@ -15,6 +15,44 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "dist/main.js" }
-  ]
+    {
+      "src": "/api/(.*)",
+      "dest": "dist/main.js"
+    },
+    {
+      "src": "/(.*)",
+      "status": 404,
+      "dest": "dist/main.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://kalonitinere.site"
+        },
+        {
+          "key": "Vary",
+          "value": "Origin"
+        },
+        {
+          "key": "Access-Control-Allow-Credentials",
+          "value": "true"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "mysql://root:InBvRVByfGtccIsWvypOViFXSudtNAyf@caboose.proxy.rlwy.net:15953/railway"
+  }
 }
