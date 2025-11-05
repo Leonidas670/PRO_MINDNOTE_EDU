@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+﻿import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { NotificacionesService } from './notificaciones.service';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
@@ -26,7 +26,7 @@ export class NotificacionesController {
   update(@Param('id') id: string, @Body() body:any) {
     return {
       "exito": true,
-      "mensaje": "Notificación actualizada exitosamente",
+      "mensaje": "NotificaciÃ³n actualizada exitosamente",
       "id": id,
       "data": this.notificacionesService.update(+id, body)
   };

@@ -1,1 +1,1 @@
-export class PrioridadTarea {}
+﻿export class PrioridadTarea {}

@@ -13,7 +13,7 @@
     "incremental": true,
     "strict": true,
     "paths": {
-      "generated/prisma": ["./generated/prisma"]
+      "@prisma/client": ["./@prisma/client"]
     }
   },
   "include": ["src/**/*", "generated/**/*"],

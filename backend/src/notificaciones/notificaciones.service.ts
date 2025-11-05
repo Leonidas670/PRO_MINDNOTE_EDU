@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+﻿import { Body, Injectable } from '@nestjs/common';
 import { CreateNotificacioneDto } from './dto/create-notificacione.dto';
 import { UpdateNotificacioneDto } from './dto/update-notificacione.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -40,7 +40,7 @@ export class NotificacionesService {
     })
     return{
       "exito": true,
-      "mensaje": "Notificación eliminada exitosamente",
+      "mensaje": "NotificaciÃ³n eliminada exitosamente",
       "id": id
     }
   } 

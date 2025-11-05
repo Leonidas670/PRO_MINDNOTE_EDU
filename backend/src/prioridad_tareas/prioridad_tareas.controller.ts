@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+﻿import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { PrioridadTareasService } from './prioridad_tareas.service';
 import { CreatePrioridadTareaDto } from './dto/create-prioridad_tarea.dto';
 import { UpdatePrioridadTareaDto } from './dto/update-prioridad_tarea.dto';

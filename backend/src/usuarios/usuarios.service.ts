@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+﻿import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsuariosService {
-  constructor(private prisma: PrismaService) {} // ✅ constructor correcto
+  constructor(private prisma: PrismaService) {} // âœ… constructor correcto
 
   async create(body: any) {
     return this.prisma.usuario.create({ data: body });

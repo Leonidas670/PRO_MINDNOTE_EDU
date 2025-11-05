@@ -1,1 +1,1 @@
-export class CreateHistorialTareaDto {}
+﻿export class CreateHistorialTareaDto {}

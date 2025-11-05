@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+﻿import { Injectable } from '@nestjs/common';
 import { CreateHistorialTareaDto } from './dto/create-historial_tarea.dto';
 import { UpdateHistorialTareaDto } from './dto/update-historial_tarea.dto';
 import { PrismaService } from 'src/prisma/prisma.service';

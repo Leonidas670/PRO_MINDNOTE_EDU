@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+﻿import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HistorialTareasService } from './historial_tareas.service';
 import { CreateHistorialTareaDto } from './dto/create-historial_tarea.dto';
 import { UpdateHistorialTareaDto } from './dto/update-historial_tarea.dto';

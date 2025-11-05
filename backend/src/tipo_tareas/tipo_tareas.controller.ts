@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+﻿import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TipoTareasService } from './tipo_tareas.service';
 import { CreateTipoTareaDto } from './dto/create-tipo_tarea.dto';
 import { UpdateTipoTareaDto } from './dto/update-tipo_tarea.dto';

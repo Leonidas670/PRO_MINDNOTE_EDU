@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+﻿import { Injectable } from '@nestjs/common';
 import { CreateLoginDto } from './dto/create-login.dto';
 import { UpdateLoginDto } from './dto/update-login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -25,8 +25,8 @@ export class LoginService {
         
         }
       }else{
-        return { success: true, mensaje: "Credenciales correctas", "data": existe } 
-      }
+        return { success: true, mensaje: "Credenciales correctas", "data": existeÂ }Â 
+Â Â Â Â Â Â }
 
   }
 

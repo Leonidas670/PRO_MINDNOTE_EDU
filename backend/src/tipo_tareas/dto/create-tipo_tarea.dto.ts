@@ -1,1 +1,1 @@
-export class CreateTipoTareaDto {}
+﻿export class CreateTipoTareaDto {}

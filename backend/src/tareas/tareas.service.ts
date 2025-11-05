@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+﻿import { Injectable } from '@nestjs/common';
 import { CreateTareaDto } from './dto/create-tarea.dto';
 import { UpdateTareaDto } from './dto/update-tarea.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -14,7 +14,7 @@ export class TareasService {
 
     const [hours, minutes] = body.tarea_hora.split(":").map(Number);
 
-    // Crear un Date (puede ser hoy, la fecha no importa porque MySQL solo guardará la hora)
+    // Crear un Date (puede ser hoy, la fecha no importa porque MySQL solo guardarÃ¡ la hora)
     const hora = new Date();
     hora.setHours(hours, minutes, 0, 0);
 
