@@ -17,6 +17,18 @@
   "routes": [
     {
       "src": "/api/(.*)",
+      "methods": ["OPTIONS"],
+      "status": 204,
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Origin",
+        "Access-Control-Allow-Credentials": "false",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
+      }
+    },
+    {
+      "src": "/api/(.*)",
       "dest": "dist/main.js"
     },
     {
@@ -29,30 +41,12 @@
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://kalonitinere.site"
-        },
-        {
-          "key": "Vary",
-          "value": "Origin"
-        },
-        {
-          "key": "Access-Control-Allow-Credentials",
-          "value": "true"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization, X-Requested-With"
-        }
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Vary", "value": "Origin" },
+        { "key": "Access-Control-Allow-Credentials", "value": "false" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-Requested-With" }
       ]
     }
-  ],
-  "env": {
-    "DATABASE_URL": "mysql://root:InBvRVByfGtccIsWvypOViFXSudtNAyf@caboose.proxy.rlwy.net:15953/railway"
-  }
+  ]
 }
