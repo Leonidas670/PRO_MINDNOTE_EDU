@@ -7,3 +7,7 @@
   from = "/*"
   to   = "/index.html"
   status = 200
+
+# Opcional: fuerza a Netlify a buscar funciones en una carpeta que NO existe
+[functions]
+  directory = "netlify/functions"
