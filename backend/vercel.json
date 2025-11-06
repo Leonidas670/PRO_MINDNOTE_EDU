@@ -16,37 +16,23 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "^/api/.*",
       "methods": ["OPTIONS"],
       "status": 204,
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Vary": "Origin",
-        "Access-Control-Allow-Credentials": "false",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
       }
     },
     {
-      "src": "/api/(.*)",
+      "src": "^/api/(.*)",
       "dest": "dist/main.js"
     },
     {
-      "src": "/(.*)",
-      "status": 404,
-      "dest": "dist/main.js"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Vary", "value": "Origin" },
-        { "key": "Access-Control-Allow-Credentials", "value": "false" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, X-Requested-With" }
-      ]
+      "src": "^(?!/api/).*",
+      "status": 404
     }
   ]
 }
